@@ -202,7 +202,7 @@
         <appender-ref ref="ERROR_APPENDER"/>
     </appender>
     <!-- specify the log level of the package -->
-    <logger name="com.tra" level="INFO" />
+    <logger name="com.dyp" level="INFO" />
   
     <root level="WARN">
         <appender-ref ref="DEBUG_APPENDER" />

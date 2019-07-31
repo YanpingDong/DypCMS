@@ -1,8 +1,8 @@
-package com.tra.repository;
+package com.dyp.repository;
 
 
 
-import com.tra.entity.PhotoEntity;
+import com.dyp.entity.PhotoEntity;
 import org.apache.ibatis.annotations.Param;
 
 public interface IPhoto {

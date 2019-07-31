@@ -1,4 +1,4 @@
-package com.tra.web.model;
+package com.dyp.web.model;
 import org.springframework.web.multipart.MultipartFile;
 
 public class StudentForm {

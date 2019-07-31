@@ -1,8 +1,7 @@
-package com.tra.repository;
+package com.dyp.repository;
 
-import com.tra.entity.Person;
-import com.tra.entity.PersonRole;
-import com.tra.entity.Role;
+import com.dyp.entity.Person;
+import com.dyp.entity.PersonRole;
 
 import java.util.List;
 

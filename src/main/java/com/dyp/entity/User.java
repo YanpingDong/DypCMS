@@ -1,4 +1,4 @@
-package com.tra.entity;
+package com.dyp.entity;
 
 
 import org.apache.ibatis.type.Alias;

@@ -1,4 +1,4 @@
-package com.tra.entity;
+package com.dyp.entity;
 
 import java.io.Serializable;
 

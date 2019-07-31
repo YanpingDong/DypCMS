@@ -7,6 +7,6 @@
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
     <typeAliases>
-        <package name="com.tra.entity"/>
+        <package name="com.dyp.entity"/>
     </typeAliases>
 </configuration>

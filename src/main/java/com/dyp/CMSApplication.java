@@ -1,18 +1,18 @@
-package com.tra;
+package com.dyp;
 
-import com.tra.swagger.EnableApiDoc;
+import com.dyp.swagger.EnableApiDoc;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 @SpringBootApplication
-@MapperScan("com.tra.repository")
+@MapperScan("com.dyp.repository")
 @EnableApiDoc
-public class RmgApplication {
+public class CMSApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(RmgApplication.class, args);
+		SpringApplication.run(CMSApplication.class, args);
 	}
 
 }

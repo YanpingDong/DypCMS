@@ -1,4 +1,4 @@
-package com.tra.swagger;
+package com.dyp.swagger;
 
 import org.springframework.context.annotation.Import;
 

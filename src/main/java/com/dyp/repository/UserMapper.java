@@ -1,6 +1,6 @@
-package com.tra.repository;
+package com.dyp.repository;
 
-import com.tra.entity.User;
+import com.dyp.entity.User;
 
 import java.util.List;
 

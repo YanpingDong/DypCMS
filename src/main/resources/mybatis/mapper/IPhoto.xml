@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 唯一命名空间，必须定义为：所在包名+接口文件名 -->
-<mapper namespace="com.tra.repository.IPhoto">
+<mapper namespace="com.dyp.repository.IPhoto">
     <cache eviction="FIFO" size="512" flushInterval="60000" readOnly="false"></cache>
 
-    <resultMap type="com.tra.entity.PhotoEntity" id="photoMapper_resultMap_photoEntity">
+    <resultMap type="com.dyp.entity.PhotoEntity" id="photoMapper_resultMap_photoEntity">
         <id property="photoId"           column="photo_id"       javaType="java.lang.String" jdbcType="VARCHAR" />
         <result property="photoData" column="photo_data"     javaType="byte[]" jdbcType="BLOB" typeHandler="org.apache.ibatis.type.BlobTypeHandler" />
         <result property="fileName"  column="file_name"      javaType="java.lang.String" jdbcType="VARCHAR" />
     </resultMap>
 
-    <insert id="createPhoto" parameterType="com.tra.entity.PhotoEntity">
+    <insert id="createPhoto" parameterType="com.dyp.entity.PhotoEntity">
         <!--<selectKey keyProperty="photoId" resultType="String" order="BEFORE">-->
             <!--select photo.nextval('photo')-->
         <!--</selectKey>-->

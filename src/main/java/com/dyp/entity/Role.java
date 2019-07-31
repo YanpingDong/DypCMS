@@ -1,4 +1,4 @@
-package com.tra.entity;
+package com.dyp.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

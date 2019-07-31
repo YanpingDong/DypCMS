@@ -1,8 +1,8 @@
-package com.tra.controller;
+package com.dyp.controller;
 
-import com.tra.entity.Person;
-import com.tra.entity.PersonRole;
-import com.tra.repository.IPersonRole;
+import com.dyp.entity.Person;
+import com.dyp.entity.PersonRole;
+import com.dyp.repository.IPersonRole;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

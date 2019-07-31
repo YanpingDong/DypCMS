@@ -1,8 +1,8 @@
-package com.tra;
+package com.dyp;
 
 
-import com.tra.entity.User;
-import com.tra.repository.UserMapper;
+import com.dyp.entity.User;
+import com.dyp.repository.UserMapper;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

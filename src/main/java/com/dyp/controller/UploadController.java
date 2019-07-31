@@ -1,23 +1,17 @@
-package com.tra.controller;
+package com.dyp.controller;
 
-import com.tra.entity.PersonRole;
-import com.tra.entity.PhotoEntity;
-import com.tra.repository.IPersonRole;
-import com.tra.repository.IPhoto;
-import com.tra.web.model.StudentForm;
+import com.dyp.entity.PhotoEntity;
+import com.dyp.repository.IPhoto;
+import com.dyp.web.model.StudentForm;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLEncoder;
-import java.sql.Date;
-import java.util.List;
 
 //https://blog.csdn.net/qq_34874784/article/details/83380144 分段上传
 //https://blog.csdn.net/A1032453509/article/details/78045957 断点续传
