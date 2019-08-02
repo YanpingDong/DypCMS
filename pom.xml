@@ -75,11 +75,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
-		<!-- spring.thymeleaf.mode=LEGACYHTML5 -->
-		<!--<dependency>-->
-			<!--<groupId>net.sourceforge.nekohtml</groupId>-->
-			<!--<artifactId>nekohtml</artifactId>-->
-		<!--</dependency>-->
 
 		<!--文件上传-->
 		<dependency>
@@ -104,13 +99,8 @@
 		<!-- SECURITY begin -->
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
-			<artifactId>shiro-core</artifactId>
-			<version>${shiro.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.shiro</groupId>
-			<artifactId>shiro-web</artifactId>
-			<version>${shiro.version}</version>
+			<artifactId>shiro-spring</artifactId>
+			<version>1.4.1</version>
 		</dependency>
 
 		<!--jackson json-->
@@ -134,12 +124,15 @@
 			<version>${commons-codec.version}</version>
 		</dependency>
 
-		<!--&lt;!&ndash; https://mvnrepository.com/artifact/com.ckfinder/CKFinderPlugin-FileEditor &ndash;&gt;-->
-		<!--<dependency>-->
-			<!--<groupId>com.ckfinder</groupId>-->
-			<!--<artifactId>CKFinderPlugin-FileEditor</artifactId>-->
-			<!--<version>2.4</version>-->
-		<!--</dependency>-->
+		<!-- caching -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-cache</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
+		</dependency>
 
 	</dependencies>
 

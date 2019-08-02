@@ -1,6 +1,3 @@
-/**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
- */
 package com.dyp.common.persistence.interceptor;
 
 import com.dyp.common.persistence.entity.Page;

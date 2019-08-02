@@ -23,6 +23,9 @@ public class RmgApplicationTests {
     @Test
     public void areaDaoTest()
     {
+        Area area = areaDao.get("1");
+        System.out.println(area);
+
 //        Area area = new Area();
 //        Area parea = new Area();
 //        User user = new User();
