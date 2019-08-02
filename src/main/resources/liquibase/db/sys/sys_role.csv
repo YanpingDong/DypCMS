@@ -1,0 +1,8 @@
+id,office_id,name,enname,role_type,data_scope,remarks,useable,create_by,create_date,update_by,update_date,del_flag
+1,1,系统管理员,system administrator,assignment,1,,1,1,2019-08-01,1,2019-08-01,0
+2,1,公司管理员,company administrator,assignment,2,,1,1,2019-08-01,1,2019-08-01,0
+3,1,本公司管理员,subcompany administrator,assignment,3,,1,1,2019-08-01,1,2019-08-01,0
+4,1,部门管理员,department administrator,assignment,4,,1,1,2019-08-01,1,2019-08-01,0
+5,1,本部门管理员,subdepartment administrator,assignment,5,,1,1,2019-08-01,1,2019-08-01,0
+6,1,普通用户,ordinary users,assignment,8,,1,1,2019-08-01,1,2019-08-01,0
+7,7,西安市管理员,xian administrator,assignment,9,,1,1,2019-08-01,1,2019-08-01,0

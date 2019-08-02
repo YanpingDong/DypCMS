@@ -10,49 +10,491 @@
 
 
     <changeSet author="dyp" id="1">
-        <createTable tableName="test">
-            <column name="id" type="BIGINT">
+        <createTable tableName="sys_area" remarks="">
+            <column name="id" type="VARCHAR(64)" remarks="编号">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="name" type="VARCHAR(255)">
+            <column name="parent_id" type="VARCHAR(64)" remarks="父级编号">
                 <constraints nullable="false"/>
+            </column>
+            <column name="parent_ids" type="VARCHAR(2000)" remarks="所有父级编号">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(100)" remarks="名称">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sort" type="DECIMAL(10,0)" remarks="排序">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" type="VARCHAR(100)" remarks="区域编码">
+            </column>
+            <column name="type" type="CHAR" remarks="区域类型">
+            </column>
+            <column name="create_by" type="VARCHAR(64)" remarks="创建者">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_date" type="datetime" remarks="创建时间">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_by" type="VARCHAR(64)" remarks="更新者">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_date" type="datetime" remarks="更新时间">
+                <constraints nullable="false"/>
+            </column>
+            <column name="remarks" type="VARCHAR(255)" remarks="备注信息">
+            </column>
+            <column name="del_flag" type="CHAR" defaultValue="0" remarks="删除标记">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <!-- 给sys_area创建索引 -->
+        <createIndex indexName="sys_area_parent_id" tableName="sys_area">
+            <column name="parent_id"/>
+        </createIndex>
+
+        <createIndex indexName="sys_area_del_flag" tableName="sys_area">
+            <column name="del_flag"/>
+        </createIndex>
+
+    </changeSet>
+
+    <changeSet author="dyp" id="2">
+        <loadData tableName="sys_area" encoding="UTF-8"
+                  file="liquibase/db/sys/sys_area.csv"
+                  separator="," >
+            <!--<column header="activo" name="activo" type="BOOLEAN"/>-->
+        </loadData>
+    </changeSet>
+
+
+    <changeSet author="dyp" id="3">
+        <!--创建sys_dict表-->
+        <createTable tableName="sys_dict" remarks="字典表">
+            <column name="id" type="VARCHAR(64)" remarks="编号">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="value" type="VARCHAR(100)" remarks="数据值">
+                <constraints nullable="false"/>
+            </column>
+            <column name="label" type="VARCHAR(100)" remarks="标签名">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="VARCHAR(100)" remarks="类型">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(100)" remarks="描述">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sort" type="DECIMAL(10,0)" remarks="排序">
+                <constraints nullable="false"/>
+            </column>
+            <column name="parent_id" type="VARCHAR(64)" defaultValue="0" remarks="父级编号">
+            </column>
+            <column name="create_by" type="VARCHAR(64)" remarks="创建者">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_date" type="datetime" remarks="创建时间">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_by" type="VARCHAR(64)" remarks="更新者">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_date" type="datetime" remarks="更新时间">
+                <constraints nullable="false"/>
+            </column>
+            <column name="remarks" type="VARCHAR(255)" remarks="备注信息">
+            </column>
+            <column name="del_flag" type="CHAR(1)" defaultValue="0" remarks="删除标记">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <!-- 创建sys_dict表索引 -->
+        <createIndex indexName="sys_dict_value" tableName="sys_dict">
+            <column name="value"/>
+        </createIndex>
+
+        <createIndex indexName="sys_dict_label" tableName="sys_dict">
+            <column name="label"/>
+        </createIndex>
+
+        <createIndex indexName="sys_dict_del_flag" tableName="sys_dict">
+            <column name="del_flag"/>
+        </createIndex>
+
+    </changeSet>
+
+    <changeSet author="dyp" id="4">
+        <!--写入初始化数据-->
+        <loadData tableName="sys_dict" encoding="UTF-8"
+                  file="liquibase/db/sys/sys_dict.csv"
+                  separator="," >
+        </loadData>
+    </changeSet>
+
+    <changeSet author="dyp" id="5" >
+        <createTable tableName="sys_log" remarks="日志表">
+            <column name="id" type="VARCHAR(64)" remarks="编号">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="type" type="CHAR(1)" defaultValue="1" remarks="日志类型"/>
+            <column name="title" type="VARCHAR(255)" defaultValue=" " remarks="日志标题"/>
+            <column name="create_by" type="VARCHAR(64)" remarks="创建者"/>
+            <column name="create_date" type="datetime" remarks="创建时间"/>
+            <column name="remote_addr" type="VARCHAR(255)" remarks="操作IP地址"/>
+            <column name="user_agent" type="VARCHAR(255)" remarks="用户代理"/>
+            <column name="request_uri" type="VARCHAR(255)" remarks="请求URI"/>
+            <column name="method" type="VARCHAR(5)" remarks="请求URI"/>
+            <column name="params" type="TEXT" remarks="操作提交的数据"/>
+            <column name="exception" type="TEXT" remarks="异常信息"/>
+        </createTable>
+
+        <createIndex tableName="sys_log" indexName="sys_log_create_by">
+            <column name="create_by"/>
+        </createIndex>
+
+        <!--ERROR INFO：Specified key was too long; max key length is 767 bytes-->
+        <!--<createIndex tableName="sys_log" indexName="sys_log_request_uri">-->
+            <!--<column name="request_uri"/>-->
+        <!--</createIndex>-->
+
+        <createIndex tableName="sys_log" indexName="sys_log_type">
+            <column name="type"/>
+        </createIndex>
+
+        <createIndex tableName="sys_log" indexName="sys_log_create_date">
+            <column name="create_date"/>
+        </createIndex>
+
+    </changeSet>
+
+
+    <changeSet author="dyp" id="6" >
+        <createTable tableName="sys_menu" remarks="菜单表">
+            <column name="id" type="VARCHAR(64)" remarks="编号">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="parent_id" type="VARCHAR(64)" remarks="父级编号">
+                <constraints nullable="false"/>
+            </column>
+            <column name="parent_ids" type="VARCHAR(2000)" remarks="所有父级编号">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(100)" remarks="名称">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sort" type="DECIMAL(10,0)" remarks="排序">
+                <constraints nullable="false"/>
+            </column>
+            <column name="href" type="VARCHAR(2000)" remarks="链接"/>
+            <column name="target" type="VARCHAR(20)" remarks="目标"/>
+            <column name="icon" type="VARCHAR(100)" remarks="图标"/>
+            <column name="is_show" type="CHAR(1)" remarks="是否在菜单中显示">
+                <constraints nullable="false"/>
+            </column>
+            <column name="permission" type="VARCHAR(200)" remarks="权限标识"/>
+            <column name="create_by" type="VARCHAR(64)" remarks="创建者">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_date" type="datetime" remarks="创建时间">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_by" type="VARCHAR(64)" remarks="更新者">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_date" type="datetime" remarks="更新时间">
+                <constraints nullable="false"/>
+            </column>
+            <column name="remarks" type="VARCHAR(255)" remarks="备注信息"/>
+            <column name="del_flag" type="CHAR" defaultValue="0" remarks="删除标记">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createIndex tableName="sys_menu" indexName="sys_menu_parent_id">
+            <column name="parent_id"/>
+        </createIndex>
+
+        <createIndex tableName="sys_menu" indexName="sys_menu_del_flag">
+            <column name="del_flag"/>
+        </createIndex>
+
+    </changeSet>
+
+
+    <changeSet author="dyp" id="7">
+        <!--写入初始化数据-->
+        <loadData tableName="sys_menu" encoding="UTF-8"
+                  file="liquibase/db/sys/sys_menu.csv"
+                  separator="," >
+        </loadData>
+    </changeSet>
+
+    <changeSet author="dyp" id="8" >
+        <createTable tableName="sys_office" remarks="机构表">
+            <column name="id" type="VARCHAR(64)" remarks="编号">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="parent_id" type="VARCHAR(64)" remarks="父级编号">
+                <constraints nullable="false"/>
+            </column>
+            <column name="parent_ids" type="VARCHAR(2000)" remarks="所有父级编号">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(100)" remarks="名称">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sort" type="DECIMAL(10,0)" remarks="排序">
+                <constraints nullable="false"/>
+            </column>
+            <column name="area_id" type="VARCHAR(64)" remarks="归属区域">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" type="VARCHAR(100)" remarks="区域编码"/>
+            <column name="type" type="CHAR(1)" remarks="机构类型">
+                <constraints nullable="false"/>
+            </column>
+            <column name="grade" type="CHAR(1)" remarks="机构等级">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address" type="VARCHAR(255)" remarks="联系地址"/>
+            <column name="zip_code" type="VARCHAR(100)" remarks="邮政编码"/>
+            <column name="master" type="VARCHAR(100)" remarks="负责人"/>
+            <column name="phone" type="VARCHAR(200)" remarks="电话"/>
+            <column name="fax" type="VARCHAR(200)" remarks="传真"/>
+            <column name="email" type="VARCHAR(200)" remarks="邮箱"/>
+            <column name="useable" type="VARCHAR(64)" remarks="是否启用"/>
+            <column name="primary_person" type="VARCHAR(64)" remarks="主负责人"/>
+            <column name="deputy_person" type="VARCHAR(64)" remarks="副负责人"/>
+            <column name="create_by" type="VARCHAR(64)" remarks="创建者">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_date" type="datetime" remarks="创建时间">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_by" type="VARCHAR(64)" remarks="更新者">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_date" type="datetime" remarks="更新时间">
+                <constraints nullable="false"/>
+            </column>
+            <column name="remarks" type="VARCHAR(255)" remarks="备注信息"/>
+            <column name="del_flag" type="CHAR" defaultValue="0" remarks="删除标记">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createIndex tableName="sys_office" indexName="sys_office_parent_id">
+            <column name="parent_id"/>
+        </createIndex>
+
+        <createIndex tableName="sys_office" indexName="sys_office_del_flag">
+            <column name="del_flag"/>
+        </createIndex>
+
+        <createIndex tableName="sys_office" indexName="sys_office_type">
+            <column name="type"/>
+        </createIndex>
+
+    </changeSet>
+
+    <changeSet author="dyp" id="9">
+        <!--写入初始化数据-->
+        <loadData tableName="sys_office" encoding="UTF-8"
+                  file="liquibase/db/sys/sys_office.csv"
+                  separator="," >
+        </loadData>
+    </changeSet>
+
+    <changeSet author="dyp" id="10" >
+        <createTable tableName="sys_role" remarks="角色表">
+            <column name="id" type="VARCHAR(64)" remarks="编号">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="office_id" type="VARCHAR(64)" remarks="归属机构"/>
+            <column name="name" type="VARCHAR(100)" remarks="角色名称">
+                <constraints nullable="false"/>
+            </column>
+            <column name="enname" type="VARCHAR(100)" remarks="英文名称"/>
+            <column name="role_type" type="VARCHAR(255)" remarks="角色类型"/>
+            <column name="data_scope" type="CHAR(1)" remarks="数据范围"/>
+            <column name="is_sys" type="VARCHAR(64)" remarks="是否系统数据"/>
+            <column name="useable" type="VARCHAR(64)" remarks="是否可用"/>
+            <column name="create_by" type="VARCHAR(64)" remarks="创建者">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_date" type="datetime" remarks="创建时间">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_by" type="VARCHAR(64)" remarks="更新者">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_date" type="datetime" remarks="更新时间">
+                <constraints nullable="false"/>
+            </column>
+            <column name="remarks" type="VARCHAR(255)" remarks="备注信息"/>
+            <column name="del_flag" type="CHAR" defaultValue="0" remarks="删除标记">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createIndex tableName="sys_role" indexName="sys_role_enname">
+            <column name="enname"/>
+        </createIndex>
+
+        <createIndex tableName="sys_role" indexName="sys_role_del_flag">
+            <column name="del_flag"/>
+        </createIndex>
+
+    </changeSet>
+
+    <changeSet author="dyp" id="11">
+        <!--写入初始化数据-->
+        <loadData tableName="sys_role" encoding="UTF-8"
+                  file="liquibase/db/sys/sys_role.csv"
+                  separator="," >
+        </loadData>
+    </changeSet>
+
+    <changeSet author="dyp" id="12" >
+        <createTable tableName="sys_user" remarks="用户表">
+            <column name="id" type="VARCHAR(64)" remarks="编号">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="company_id" type="VARCHAR(64)" remarks="归属公司">
+                <constraints nullable="false"/>
+            </column>
+            <column name="office_id" type="VARCHAR(64)" remarks="归属部门">
+                <constraints nullable="false"/>
+            </column>
+            <column name="login_name" type="VARCHAR(100)" remarks="登录名">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(100)" remarks="密码">
+                <constraints nullable="false"/>
+            </column>
+            <column name="no" type="VARCHAR(100)" remarks="工号"/>
+            <column name="name" type="VARCHAR(100)" remarks="姓名">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(200)" remarks="邮箱"/>
+            <column name="phone" type="VARCHAR(200)" remarks="电话"/>
+            <column name="mobile" type="VARCHAR(200)" remarks="手机"/>
+            <column name="user_type" type="CHAR(1)" remarks="用户类型"/>
+            <column name="photo" type="VARCHAR(1000)" remarks="用户头像"/>
+            <column name="login_ip" type="VARCHAR(100)" remarks="最后登陆IP"/>
+            <column name="login_date" type="datetime" remarks="最后登陆时间"/>
+            <column name="login_flag" type="VARCHAR(64)" remarks="是否可登录"/>
+            <column name="create_by" type="VARCHAR(64)" remarks="创建者">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_date" type="datetime" remarks="创建时间">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_by" type="VARCHAR(64)" remarks="更新者">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_date" type="datetime" remarks="更新时间">
+                <constraints nullable="false"/>
+            </column>
+            <column name="remarks" type="VARCHAR(255)" remarks="备注信息"/>
+            <column name="del_flag" type="CHAR" defaultValue="0" remarks="删除标记">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createIndex tableName="sys_user" indexName="sys_user_office_id">
+            <column name="office_id"/>
+        </createIndex>
+
+        <createIndex tableName="sys_user" indexName="sys_user_login_name">
+            <column name="login_name"/>
+        </createIndex>
+
+        <createIndex tableName="sys_user" indexName="sys_user_company_id">
+            <column name="company_id"/>
+        </createIndex>
+
+        <createIndex tableName="sys_user" indexName="sys_user_update_date">
+            <column name="update_date"/>
+        </createIndex>
+
+        <createIndex tableName="sys_user" indexName="sys_user_del_flag">
+            <column name="del_flag"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="dyp" id="13">
+        <!--写入初始化数据-->
+        <loadData tableName="sys_user" encoding="UTF-8"
+                  file="liquibase/db/sys/sys_user.csv"
+                  separator="," >
+        </loadData>
+    </changeSet>
+
+    <changeSet author="dyp" id="14" >
+        <createTable tableName="sys_role_menu" remarks="角色-菜单">
+            <column name="role_id" type="VARCHAR(64)" remarks="角色编号">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="menu_id" type="VARCHAR(64)" remarks="菜单编号">
+                <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
 
-
-    <changeSet id="2" author="dyp">
-        <insert tableName="test">
-            <column name="id" value="1"/>
-            <column name="name" value="test"/>
-        </insert>
+    <changeSet author="dyp" id="15">
+        <!--写入初始化数据-->
+        <loadData tableName="sys_role_menu" encoding="UTF-8"
+                  file="liquibase/db/sys/sys_role_menu.csv"
+                  separator="," >
+        </loadData>
     </changeSet>
 
-    <!--数据库类型参考-->
-    <!--<changeSet author="dyp" id="2">-->
-        <!--<createTable tableName="oauth_access_token">-->
-            <!--<column autoIncrement="true" name="id" type="BIGINT">-->
-                <!--<constraints primaryKey="true"/>-->
-            <!--</column>-->
-            <!--<column name="authentication" type="BLOB"/>-->
-            <!--<column name="authentication_id" type="VARCHAR(255)"/>-->
-            <!--<column name="refresh_token" type="TEXT"/>-->
-            <!--<column name="token" type="BLOB"/>-->
-        <!--</createTable>-->
+    <changeSet author="dyp" id="16" >
+        <createTable tableName="sys_role_office" remarks="角色-菜单">
+            <column name="role_id" type="VARCHAR(64)" remarks="角色编号">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="office_id" type="VARCHAR(64)" remarks="机构编号">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
 
+    <changeSet author="dyp" id="17">
+        <!--写入初始化数据-->
+        <loadData tableName="sys_role_office" encoding="UTF-8"
+                  file="liquibase/db/sys/sys_role_office.csv"
+                  separator="," />
+    </changeSet>
+
+
+    <changeSet author="dyp" id="18" >
+        <createTable tableName="sys_user_role" remarks="用户-角色">
+            <column name="user_id" type="VARCHAR(64)" remarks="用户编号">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="role_id" type="VARCHAR(64)" remarks="角色编号">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="dyp" id="19">
+        <!--写入初始化数据-->
+        <loadData tableName="sys_user_role" encoding="UTF-8"
+                  file="liquibase/db/sys/sys_user_role.csv"
+                  separator="," />
+    </changeSet>
     <!--添加主键参考-->
     <!--</changeSet>-->
     <!--<changeSet author="dyp" id="23">-->
         <!--<addPrimaryKey columnNames="username" constraintName="PRIMARY" tableName="user_login_ip_info"/>-->
     <!--</changeSet>-->
 
-    <!--创创index参考-->
-    <!--<changeSet author="dyp" id="31">-->
-        <!--<createIndex indexName="IDX2cbnggudeanotnbfqs7bp38wi" tableName="tvfavorites">-->
-            <!--<column name="username"/>-->
-            <!--<column name="timestamp"/>-->
-        <!--</createIndex>-->
-    <!--</changeSet>-->
 
     <!--增加列参考-->
     <!--<changeSet author="dyp" id="40">-->

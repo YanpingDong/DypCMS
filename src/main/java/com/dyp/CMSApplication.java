@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 @SpringBootApplication
-@MapperScan("com.dyp.repository")
+@MapperScan({"com.dyp.modules.sys.dao"})
 @EnableApiDoc
 public class CMSApplication {
 
