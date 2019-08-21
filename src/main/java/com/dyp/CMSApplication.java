@@ -8,9 +8,9 @@ import org.springframework.cache.annotation.EnableCaching;
 
 
 @SpringBootApplication
-@MapperScan({"com.dyp.modules.sys.dao"})
 @EnableApiDoc
 @EnableCaching
+@MapperScan({"com.dyp.modules.sys.dao"})
 public class CMSApplication {
 
 	public static void main(String[] args) {

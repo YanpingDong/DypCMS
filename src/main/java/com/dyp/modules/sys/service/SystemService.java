@@ -17,7 +17,7 @@ import com.dyp.modules.sys.entity.Menu;
 import com.dyp.modules.sys.entity.Office;
 import com.dyp.modules.sys.entity.Role;
 import com.dyp.modules.sys.entity.User;
-import com.dyp.modules.sys.security.SystemAuthorizingRealm;
+//import com.dyp.modules.sys.security.SystemAuthorizingRealm;
 import com.dyp.modules.sys.utils.LogUtils;
 import com.dyp.modules.sys.utils.UserUtils;
 import org.apache.shiro.session.Session;
@@ -50,14 +50,14 @@ public class SystemService extends BaseService implements InitializingBean {
 	private RoleDao roleDao;
 	@Autowired
 	private MenuDao menuDao;
-	@Autowired
-	private SessionDAO sessionDao;
+//	@Autowired
+//	private SessionDAO sessionDao;
 //	@Autowired
 //	private SystemAuthorizingRealm systemRealm;
 	
-	public SessionDAO getSessionDao() {
-		return sessionDao;
-	}
+//	public SessionDAO getSessionDao() {
+//		return sessionDao;
+//	}
 
 
 	//-- User Service --//
@@ -222,9 +222,9 @@ public class SystemService extends BaseService implements InitializingBean {
 	 * 获得活动会话
 	 * @return
 	 */
-	public Collection<Session> getActiveSessions(){
-		return sessionDao.getActiveSessions(false);
-	}
+//	public Collection<Session> getActiveSessions(){
+//		return sessionDao.getActiveSessions(false);
+//	}
 	
 	//-- Role Service --//
 	

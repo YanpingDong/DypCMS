@@ -25,26 +25,7 @@ public class ShiroConfig {
 
     @Bean(name = "shiroFilter")
     public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
-        /*org.apache.shiro.web.filter.mgt.DefaultFilter中定义了所有默认的anon authc的过滤器
-         ShiroFilterFactoryBean.getObject-->ShiroFilterFactoryBean.createInstance-->ShiroFilterFactoryBean.createFilterChainManager-->DefaultFilterChainManager manager = new DefaultFilterChainManager()-->addDefaultFilters()
-        -->{
-        for (DefaultFilter defaultFilter : DefaultFilter.values()) {
-            addFilter(defaultFilter.name(), defaultFilter.newInstance(), init, false);
-        }
 
-        DefaultFilter {
-            anon(AnonymousFilter.class),
-            authc(FormAuthenticationFilter.class),
-            authcBasic(BasicHttpAuthenticationFilter.class),
-            logout(LogoutFilter.class),
-            noSessionCreation(NoSessionCreationFilter.class),
-            perms(PermissionsAuthorizationFilter.class),
-            port(PortFilter.class),
-            rest(HttpMethodPermissionFilter.class),
-            roles(RolesAuthorizationFilter.class),
-            ssl(SslFilter.class),
-            user(UserFilter.class);}
-    }*/
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
 
@@ -81,7 +62,6 @@ public class ShiroConfig {
         defaultSecurityManager.setRealm(customRealm);
         return defaultSecurityManager;
     }
-
 
 
     //===============the follow configuration enable shiro annotation
