@@ -18,8 +18,8 @@ import java.util.UUID;
  * @author ThinkGem
  * @version 2013-01-15
  */
-@Service
-@Lazy(false)
+//@Service
+//@Lazy(false)
 //public class IdGen implements /*IdGenerator,*/ SessionIdGenerator {
 public class IdGen implements  SessionIdGenerator {
 

@@ -27,7 +27,6 @@ import java.util.Set;
  * @author ThinkGem
  * @version 2014-7-24
  */
-@Repository
 public class CacheSessionDAO extends EnterpriseCacheSessionDAO implements SessionDAO {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
