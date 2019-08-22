@@ -117,17 +117,16 @@
 
             var key = CryptoJS.enc.Utf8.parse($key);
             console.log("key:" + key + ",$key:" + $key);
-//            var password = CryptoJS.enc.Utf8.parse($password);
-//            var encrypted = CryptoJS.AES.encrypt(password, key, {mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7});
-//            var encryptedPwd = encrypted.toString();
-              var encryptedPwd = $password;
-//            console.log("encrypted:" + encrypted);
+            var password = CryptoJS.enc.Utf8.parse($password);
+            //加密
+            var encrypted = CryptoJS.AES.encrypt(password, key, {mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7});
+            var encryptedPwd = encrypted.toString();
+//            var encryptedPwd = $password;
+            console.log("encrypted:" + encrypted);
 //            console.log("encryptedPwd:" + encryptedPwd);
 
-            var decrypt = CryptoJS.AES.decrypt(encryptedPwd, key, {
-                mode: CryptoJS.mode.ECB,
-                padding: CryptoJS.pad.Pkcs7
-            });
+            //解码
+            var decrypt = CryptoJS.AES.decrypt(encryptedPwd, key, {mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7});
             var testDecryptStr = CryptoJS.enc.Utf8.stringify(decrypt).toString();
 
 //            console.log("decrypt:" + decrypt);

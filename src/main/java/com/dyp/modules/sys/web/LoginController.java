@@ -1,8 +1,11 @@
 package com.dyp.modules.sys.web;
 
+import com.dyp.modules.sys.utils.AesUtils;
+import com.dyp.modules.sys.utils.RandomUtils;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,12 +26,19 @@ public class LoginController {
 
     private long verifyTTL = 60;//验证码过期时间60秒
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String toLogin(Map<String, Object> map, HttpServletRequest request) {
-//        loginService.logout();
-//        String key = create16String();
+    private String create16String()
+    {
+        return RandomUtils.generateString(16);
+    }
 
-//        map.put("key",key);
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String toLogin(HttpServletRequest request, Model model) {
+//        loginService.logout();
+        String key = create16String();
+
+        model.addAttribute("key",key);
+
         return "/sys/login";
     }
 
@@ -80,10 +90,11 @@ public class LoginController {
 
         String verifyCode = request.getParameter("verifyCode");
         String rightCode = (String) request.getSession().getAttribute("verifyCode");
+        String rightCode1 = (String) request.getSession().getAttribute("code");
         Long verifyCodeTTL = (Long) request.getSession().getAttribute("verifyCodeTTL");
 
-//        String password = AesUtils.decrypt(encryptedPassword,key);
-        String password = encryptedPassword;
+        String password = AesUtils.decrypt(encryptedPassword,key);
+//        String password = encryptedPassword;
         Long currentMillis = System.currentTimeMillis();
         if (rightCode == null || verifyCodeTTL == null) {
             map.put("msg", "请刷新图片，输入验证码！");

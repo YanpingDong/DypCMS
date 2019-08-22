@@ -35,7 +35,7 @@ public class KaptchaConfig {
 
         properties.put("kaptcha.obscurificator.impl","com.google.code.kaptcha.impl.ShadowGimpy");
 
-        properties.put("kaptcha.textproducer.char.string","acdefhkmnprtwxy2345678");
+        properties.put("kaptcha.textproducer.char.string","acdefhkmnprtwxy1234567890");
 
 
         Config config = new Config(properties);
