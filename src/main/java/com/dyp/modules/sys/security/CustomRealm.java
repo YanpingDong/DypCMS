@@ -1,11 +1,15 @@
 package com.dyp.modules.sys.security;
 
+import com.dyp.modules.sys.dao.UserDao;
+import com.dyp.modules.sys.entity.User;
+import com.dyp.modules.sys.utils.EncryptUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,9 +22,12 @@ import java.util.Set;
 * */
 @Component
 public class CustomRealm extends AuthorizingRealm {
+    public static String algorithmName = "md5";
+    public static int hashIterations = 2;
+    public static String salt = "8d78869f470951332959580424d4bf4f";
 
-//    @Autowired
-//    UserRepository userRepository;
+    @Autowired
+    private UserDao userDao;
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
@@ -45,17 +52,21 @@ public class CustomRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         System.out.println("-------身份认证方法--------");
+
         String userName = (String) authenticationToken.getPrincipal();
-        String userPwd = new String((char[]) authenticationToken.getCredentials());
-        //根据用户名从数据库获取密码
-//        String password = "2415b95d3203ac901e287b76fcef640b";
-        String password = "123";
+        //根据用户名从数据库获取密码，这里就模拟下
+        String userPwd = "123456";
+        //模拟存数据库前的加密操作，本应该是存入前就加密过的
+        String encryptPwd = EncryptUtils.encrypt(userPwd,salt,this.algorithmName,this.hashIterations);
+        User loginUser = userDao.getByLoginName(new User("", userName));
+
         if (userName == null) {
             throw new AccountException("用户名不正确");
-        } else if (!userPwd.equals(password)) {
-            //throw new AccountException("密码不正确");
+        } else if (!userPwd.equals(userPwd)) {//做简单判断
+            throw new AccountException("密码不正确");
         }
-        return new SimpleAuthenticationInfo(userName, password, getName());
+//        return new SimpleAuthenticationInfo(userName, password, getName());
+        return new SimpleAuthenticationInfo(userName, encryptPwd, ByteSource.Util.bytes(salt),getName());
     }
 
 }

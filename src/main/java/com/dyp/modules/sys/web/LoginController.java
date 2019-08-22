@@ -1,8 +1,12 @@
 package com.dyp.modules.sys.web;
 
+import com.dyp.modules.sys.model.LoginResult;
+import com.dyp.modules.sys.service.LoginService;
+import com.dyp.modules.sys.service.SystemService;
 import com.dyp.modules.sys.utils.AesUtils;
 import com.dyp.modules.sys.utils.RandomUtils;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +28,12 @@ import java.util.Map;
 public class LoginController {
     @Autowired
     DefaultKaptcha defaultKaptcha;
+
+    @Autowired
+    SystemService systemService;
+
+    @Autowired
+    private LoginService loginService;
 
     private long verifyTTL = 60;//验证码过期时间60秒
 
@@ -123,24 +134,24 @@ public class LoginController {
             return map;
         }
 
-//        LoginResult loginResult = loginService.login(userName, password);
-//        if (loginResult.isLogin()) {
-//            map.put("userName", userName);
+        LoginResult loginResult = loginService.login(userName, password);
+        if (loginResult.isLogin()) {
+            map.put("userName", userName);
 //            SysLog sysLog = LogFactory.createSysLog("登录","登录成功");
 //            logService.writeLog(sysLog);
-//            map.put("success",true);
-//            map.put("url","/index");
-//            return map;
-//
-//        } else {
-//            map.put("msg", loginResult.getResult());
-//            map.put("userName", userName);
-//            map.put("password", password);
-//            map.put("success",false);
-//            map.put("url","/login");
-//            return map;
-//
-//        }
-        return map;
+            map.put("success",true);
+            map.put("url","/index");
+            return map;
+
+        } else {
+            map.put("msg", loginResult.getResult());
+            map.put("userName", userName);
+            map.put("password", password);
+            map.put("success",false);
+            map.put("url","/login");
+            return map;
+
+        }
+
     }
 }
