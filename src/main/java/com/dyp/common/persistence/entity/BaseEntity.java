@@ -1,6 +1,7 @@
 package com.dyp.common.persistence.entity;
 
 import com.dyp.common.config.Global;
+import com.dyp.common.persistence.Page;
 import com.dyp.common.supcan.annotation.treelist.cols.SupCol;
 import com.dyp.common.utils.StringUtils;
 import com.dyp.modules.sys.entity.User;

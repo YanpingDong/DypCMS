@@ -41,7 +41,7 @@
     </settings>
 
     <typeAliases>
-        <typeAlias alias="Page" type="com.dyp.common.persistence.entity.Page" /><!--分页  -->
+        <typeAlias alias="Page" type="com.dyp.common.persistence.Page" /><!--分页  -->
         <package name="com.dyp.modules.sys.entity"/>
     </typeAliases>
 

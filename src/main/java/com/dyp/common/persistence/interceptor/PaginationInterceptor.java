@@ -1,6 +1,6 @@
 package com.dyp.common.persistence.interceptor;
 
-import com.dyp.common.persistence.entity.Page;
+import com.dyp.common.persistence.Page;
 import com.dyp.common.utils.Reflections;
 import com.dyp.common.utils.StringUtils;
 import org.apache.ibatis.executor.Executor;

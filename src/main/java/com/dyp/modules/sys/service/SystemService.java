@@ -1,9 +1,8 @@
 package com.dyp.modules.sys.service;
 
 import com.dyp.common.config.Global;
-import com.dyp.common.persistence.entity.Page;
+import com.dyp.common.persistence.Page;
 import com.dyp.common.security.Digests;
-import com.dyp.common.security.shiro.session.SessionDAO;
 import com.dyp.common.service.BaseService;
 import com.dyp.common.service.ServiceException;
 import com.dyp.common.utils.CacheUtils;
@@ -20,15 +19,12 @@ import com.dyp.modules.sys.entity.User;
 //import com.dyp.modules.sys.security.SystemAuthorizingRealm;
 import com.dyp.modules.sys.utils.LogUtils;
 import com.dyp.modules.sys.utils.UserUtils;
-import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 /**

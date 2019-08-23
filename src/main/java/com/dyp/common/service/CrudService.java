@@ -3,9 +3,9 @@
  */
 package com.dyp.common.service;
 
+import com.dyp.common.persistence.Page;
 import com.dyp.common.persistence.dao.CrudDao;
 import com.dyp.common.persistence.entity.DataEntity;
-import com.dyp.common.persistence.entity.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 

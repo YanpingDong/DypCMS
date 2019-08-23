@@ -4,7 +4,7 @@
 package com.dyp.common.persistence.interceptor;
 
 import com.dyp.common.config.Global;
-import com.dyp.common.persistence.entity.Page;
+import com.dyp.common.persistence.Page;
 import com.dyp.common.persistence.dialect.Dialect;
 import com.dyp.common.persistence.dialect.db.*;
 import com.dyp.common.utils.Reflections;
