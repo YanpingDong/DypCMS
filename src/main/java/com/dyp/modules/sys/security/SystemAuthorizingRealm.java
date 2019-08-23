@@ -61,7 +61,7 @@
 //		}
 //
 //		// 校验登录验证码
-//		//if (LoginController.isValidateCodeLogin(token.getUsername(), false, false)){
+//		//if (LoginControllerOther.isValidateCodeLogin(token.getUsername(), false, false)){
 //			Session session = UserUtils.getSession();
 //			String code = (String)session.getAttribute(ValidateCodeServlet.VALIDATE_CODE);
 //			if (token.getCaptcha() == null || !token.getCaptcha().toUpperCase().equals(code)){
