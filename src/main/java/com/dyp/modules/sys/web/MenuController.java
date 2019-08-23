@@ -31,7 +31,7 @@ import java.util.Map;
  * @version 2013-3-23
  */
 @Controller
-@RequestMapping(value = "${adminPath}/sys/menu")
+@RequestMapping(value = "/sys/menu")
 public class MenuController extends BaseController {
 
 	@Autowired

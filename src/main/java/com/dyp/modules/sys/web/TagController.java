@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
  * @version 2013-3-23
  */
 @Controller
-@RequestMapping(value = "${adminPath}/tag")
+@RequestMapping(value = "/sys/tag")
 public class TagController extends BaseController {
 	
 	/**

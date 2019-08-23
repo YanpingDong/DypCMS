@@ -32,7 +32,7 @@ import java.util.Map;
  * @version 2014-05-16
  */
 @Controller
-@RequestMapping(value = "${adminPath}/sys/dict")
+@RequestMapping(value = "/sys/dict")
 public class DictController extends BaseController {
 
 	@Autowired

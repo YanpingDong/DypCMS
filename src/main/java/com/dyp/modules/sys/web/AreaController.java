@@ -31,7 +31,7 @@ import java.util.Map;
  * @version 2013-5-15
  */
 @Controller
-@RequestMapping(value = "${adminPath}/sys/area")
+@RequestMapping(value = "/sys/area")
 public class AreaController extends BaseController {
 
 	@Autowired

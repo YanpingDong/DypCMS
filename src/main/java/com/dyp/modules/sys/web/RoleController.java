@@ -36,7 +36,7 @@ import java.util.Map;
  * @version 2013-12-05
  */
 @Controller
-@RequestMapping(value = "${adminPath}/sys/role")
+@RequestMapping(value = "/sys/role")
 public class RoleController extends BaseController {
 
 	@Autowired
@@ -44,7 +44,14 @@ public class RoleController extends BaseController {
 	
 	@Autowired
 	private OfficeService officeService;
-	
+
+	@RequestMapping("/rlist")
+//	@RequiresPermissions("role:view")
+	public String list()
+	{
+		return "/sys/roleList";
+	}
+
 	@ModelAttribute("role")
 	public Role get(@RequestParam(required=false) String id) {
 		if (StringUtils.isNotBlank(id)){

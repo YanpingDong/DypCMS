@@ -41,6 +41,7 @@ public class SystemService extends BaseService implements InitializingBean {
 	private RoleDao roleDao;
 	@Autowired
 	private MenuDao menuDao;
+
 //	@Autowired
 //	private SessionDAO sessionDao;
 //	@Autowired
@@ -385,7 +386,6 @@ public class SystemService extends BaseService implements InitializingBean {
 			return;
 		}
 		String groupId = role.getEnname();
-		
 
 	}
 

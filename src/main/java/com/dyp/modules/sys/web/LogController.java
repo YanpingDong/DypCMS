@@ -15,14 +15,20 @@ import javax.servlet.http.HttpServletResponse;
 
 
 @Controller
-@RequestMapping(value = "${adminPath}/sys/log")
+@RequestMapping(value = "/sys/log")
 public class LogController extends BaseController {
 
 	@Autowired
 	private LogService logService;
+
+	@RequestMapping(value="/list")
+	public String list()
+	{
+		return "/sys/logList";
+	}
 	
 	@RequiresPermissions("sys:log:view")
-	@RequestMapping(value = {"list", ""})
+	@RequestMapping(value = {""})
 	public String list(Log log, HttpServletRequest request, HttpServletResponse response, Model model) {
         Page<Log> page = logService.findPage(new Page<Log>(request, response), log); 
         model.addAttribute("page", page);

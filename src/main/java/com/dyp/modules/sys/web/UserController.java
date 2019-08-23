@@ -34,7 +34,7 @@ import java.util.Map;
  * @version 2013-8-29
  */
 @Controller
-@RequestMapping(value = "${adminPath}/sys/user")
+@RequestMapping(value = "/sys/user")
 public class UserController extends BaseController {
 
 	@Autowired
@@ -49,14 +49,19 @@ public class UserController extends BaseController {
 		}
 	}
 
-	@RequiresPermissions("sys:user:view")
-	@RequestMapping(value = {"index"})
-	public String index(User user, Model model) {
-		return "modules/sys/userIndex";
+	@RequestMapping("/ulist")
+	public String userList(){
+		return "/sys/userList";
+	}
+
+	@RequestMapping(value="/toChangePassword")
+	public String toChangePassword(String password,String newPassword,String newPassword2)
+	{
+		return "/sys/changePwd";
 	}
 
 	@RequiresPermissions("sys:user:view")
-	@RequestMapping(value = {"list", ""})
+	@GetMapping(value = {"list", ""})
 	public String list(User user, HttpServletRequest request, HttpServletResponse response, Model model) {
 		Page<User> page = systemService.findUser(new Page<User>(request, response), user);
         model.addAttribute("page", page);

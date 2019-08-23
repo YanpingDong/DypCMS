@@ -33,7 +33,7 @@ import java.util.Map;
  * @version 2013-5-15
  */
 @Controller
-@RequestMapping(value = "${adminPath}/sys/office")
+@RequestMapping(value = "/sys/office")
 public class OfficeController extends BaseController {
 
 	@Autowired

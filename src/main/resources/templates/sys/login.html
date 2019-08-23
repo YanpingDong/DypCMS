@@ -88,8 +88,8 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-font"></i></span>
                     <input type="text" class="verifyInput" name="verifyCode" placeholder="验证码"/>
-                    <img class="verifyImage" alt="验证码" onclick="this.src='/getVerifyCode?d='+new Date()*1"
-                         src="/getVerifyCode">
+                    <img class="verifyImage" alt="验证码" onclick="this.src='/sys/getVerifyCode?d='+new Date()*1"
+                         src="/sys/getVerifyCode">
                 </div>
 
                 <br>
@@ -135,7 +135,7 @@
 
             $.ajax({
                 type: "post",
-                url: "/login",
+                url: "/sys/login",
                 data: {userName: $userName, password: encryptedPwd, verifyCode: $verifyCode, key: $key},
 //                data: {userName: $userName, password: encryptedPwd, verifyCode: $verifyCode},
                 dataType: "json",

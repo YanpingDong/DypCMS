@@ -28,6 +28,7 @@ import java.util.Map;
 
 
 @Controller
+@RequestMapping(value = "/sys")
 public class LoginController extends BaseController{
 	
 //	@Autowired
@@ -89,15 +90,15 @@ public class LoginController extends BaseController{
 		List<menue> subMenues = new ArrayList<>();
 		menue ulistMenue = new menue();
 		ulistMenue.setName("用户管理");
-		ulistMenue.setUrl("/user/ulist");
+		ulistMenue.setUrl("/sys/user/ulist");
 
 		menue rlistMenue = new menue();
 		rlistMenue.setName("角色管理");
-		rlistMenue.setUrl("/user/rlist");
+		rlistMenue.setUrl("/sys/role/rlist");
 
 		menue pwdChgMenue = new menue();
 		pwdChgMenue.setName("修改密码");
-		pwdChgMenue.setUrl("/user/toChangePassword");
+		pwdChgMenue.setUrl("/sys/user/toChangePassword");
 		subMenues.add(ulistMenue);
 		subMenues.add(rlistMenue);
 		subMenues.add(pwdChgMenue);
@@ -106,7 +107,7 @@ public class LoginController extends BaseController{
 		List<menue> subMenues1 = new ArrayList<>();
 		menue loglistMenue = new menue();
 		loglistMenue.setName("日志查看");
-		loglistMenue.setUrl("/log/list");
+		loglistMenue.setUrl("/sys/log/list");
 		subMenues1.add(loglistMenue);
 
 
@@ -184,7 +185,7 @@ public class LoginController extends BaseController{
 			map.put("userName", userName);
 			map.put("password", password);
 			map.put("success",false);
-			map.put("url","/login");
+			map.put("url","/sys/login");
 			return map;
 		}
 		Long expiredTime = (currentMillis - verifyCodeTTL) / 1000;
@@ -202,7 +203,7 @@ public class LoginController extends BaseController{
 			map.put("userName", userName);
 			map.put("password", password);
 			map.put("success",false);
-			map.put("url","/login");
+			map.put("url","/sys/login");
 			return map;
 		}
 
@@ -212,7 +213,7 @@ public class LoginController extends BaseController{
 //            SysLog sysLog = LogFactory.createSysLog("登录","登录成功");
 //            logService.writeLog(sysLog);
 			map.put("success",true);
-			map.put("url","/index");
+			map.put("url","/sys/index");
 			return map;
 
 		} else {
@@ -220,7 +221,7 @@ public class LoginController extends BaseController{
 			map.put("userName", userName);
 			map.put("password", password);
 			map.put("success",false);
-			map.put("url","/login");
+			map.put("url","/sys/login");
 			return map;
 
 		}
