@@ -46,9 +46,9 @@ public class EncryptUtils {
     public static boolean validatePassword(String plainPassword, String password) {
         String plain = Encodes.unescapeHtml(plainPassword);
         byte[] salt = Encodes.decodeHex(password.substring(0,16));
-        byte[] hashPassword = Digests.sha1(plain.getBytes(), salt, HASH_INTERATIONS);
+        String hashedPassword = encrypt(plain, new String(salt), ALGORITHM_NAME, HASH_INTERATIONS);
 
-        return password.equals(Encodes.encodeHex(salt)+Encodes.encodeHex(hashPassword));
+        return password.equals(Encodes.encodeHex(salt)+Encodes.encodeHex(hashedPassword.getBytes()));
     }
 
 
@@ -58,11 +58,11 @@ public class EncryptUtils {
         return new String(Encodes.decodeHex(encryptPassword.substring(16)));
     }
 
-//    public static byte[] getSaltPart(String encryptPassword)
-//    {
-//        System.out.println(encryptPassword.substring(0,16));
-//        return Encodes.decodeHex(encryptPassword.substring(0,16));
-//    }
+    public static byte[] getSaltPart2ByteArry(String encryptPassword)
+    {
+        System.out.println(encryptPassword.substring(0,16));
+        return Encodes.decodeHex(encryptPassword.substring(0,16));
+    }
 
     public static String getSaltPart(String encryptPassword)
     {
