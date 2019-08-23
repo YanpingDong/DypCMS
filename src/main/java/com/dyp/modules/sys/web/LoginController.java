@@ -132,8 +132,10 @@ public class LoginController extends BaseController{
 	@GetMapping("/getVerifyCode")
 	public void defaultKaptcha(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
+
 		byte[] bytesCaptchaImg = null;
 		ByteArrayOutputStream jpegOutputStream = new ByteArrayOutputStream();
+
 		try {
 			// 生产验证码字符串并保存到session中
 			String createText = defaultKaptcha.createText();

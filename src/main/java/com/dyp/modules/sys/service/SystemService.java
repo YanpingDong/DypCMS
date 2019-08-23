@@ -2,11 +2,9 @@ package com.dyp.modules.sys.service;
 
 import com.dyp.common.config.Global;
 import com.dyp.common.persistence.Page;
-import com.dyp.common.security.Digests;
 import com.dyp.common.service.BaseService;
 import com.dyp.common.service.ServiceException;
 import com.dyp.common.utils.CacheUtils;
-import com.dyp.common.utils.Encodes;
 import com.dyp.common.utils.StringUtils;
 import com.dyp.common.web.Servlets;
 import com.dyp.modules.sys.dao.MenuDao;
@@ -17,6 +15,7 @@ import com.dyp.modules.sys.entity.Office;
 import com.dyp.modules.sys.entity.Role;
 import com.dyp.modules.sys.entity.User;
 //import com.dyp.modules.sys.security.SystemAuthorizingRealm;
+import com.dyp.modules.sys.utils.EncryptUtils;
 import com.dyp.modules.sys.utils.LogUtils;
 import com.dyp.modules.sys.utils.UserUtils;
 import org.springframework.beans.factory.InitializingBean;
@@ -35,10 +34,6 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 public class SystemService extends BaseService implements InitializingBean {
-	
-	public static final String HASH_ALGORITHM = "SHA-1";
-	public static final int HASH_INTERATIONS = 1024;
-	public static final int SALT_SIZE = 8;
 	
 	@Autowired
 	private UserDao userDao;
@@ -171,7 +166,7 @@ public class SystemService extends BaseService implements InitializingBean {
 	@Transactional(readOnly = false)
 	public void updatePasswordById(String id, String loginName, String newPassword) {
 		User user = new User(id);
-		user.setPassword(entryptPassword(newPassword));
+		user.setPassword(EncryptUtils.encryptPassword(newPassword));
 		userDao.updatePasswordById(user);
 		// 清除用户缓存
 		user.setLoginName(loginName);
@@ -191,36 +186,8 @@ public class SystemService extends BaseService implements InitializingBean {
 		userDao.updateLoginInfo(user);
 	}
 	
-	/**
-	 * 生成安全的密码，生成随机的16位salt并经过1024次 sha-1 hash
-	 */
-	public static String entryptPassword(String plainPassword) {
-		String plain = Encodes.unescapeHtml(plainPassword);
-		byte[] salt = Digests.generateSalt(SALT_SIZE);
-		byte[] hashPassword = Digests.sha1(plain.getBytes(), salt, HASH_INTERATIONS);
-		return Encodes.encodeHex(salt)+Encodes.encodeHex(hashPassword);
-	}
-	
-	/**
-	 * 验证密码
-	 * @param plainPassword 明文密码
-	 * @param password 密文密码
-	 * @return 验证成功返回true
-	 */
-	public static boolean validatePassword(String plainPassword, String password) {
-		String plain = Encodes.unescapeHtml(plainPassword);
-		byte[] salt = Encodes.decodeHex(password.substring(0,16));
-		byte[] hashPassword = Digests.sha1(plain.getBytes(), salt, HASH_INTERATIONS);
-		return password.equals(Encodes.encodeHex(salt)+Encodes.encodeHex(hashPassword));
-	}
-	
-	/**
-	 * 获得活动会话
-	 * @return
-	 */
-//	public Collection<Session> getActiveSessions(){
-//		return sessionDao.getActiveSessions(false);
-//	}
+
+
 	
 	//-- Role Service --//
 	
@@ -410,23 +377,6 @@ public class SystemService extends BaseService implements InitializingBean {
 		}
 		if (isSynActivitiIndetity){
 			isSynActivitiIndetity = false;
-	        // 同步角色数据
-//			List<Group> groupList = identityService.createGroupQuery().list();
-//			if (groupList.size() == 0){
-//			 	Iterator<Role> roles = roleDao.findAllList(new Role()).iterator();
-//			 	while(roles.hasNext()) {
-//			 		Role role = roles.next();
-//			 		saveActivitiGroup(role);
-//			 	}
-//			}
-		 	// 同步用户数据
-//			List<org.activiti.engine.identity.User> userList = identityService.createUserQuery().list();
-//			if (userList.size() == 0){
-//			 	Iterator<User> users = userDao.findAllList(new User()).iterator();
-//			 	while(users.hasNext()) {
-//			 		saveActivitiUser(users.next());
-//			 	}
-//			}
 		}
 	}
 	
@@ -436,41 +386,7 @@ public class SystemService extends BaseService implements InitializingBean {
 		}
 		String groupId = role.getEnname();
 		
-		// 如果修改了英文名，则删除原Activiti角色
-//		if (StringUtils.isNotBlank(role.getOldEnname()) && !role.getOldEnname().equals(role.getEnname())){
-//			identityService.deleteGroup(role.getOldEnname());
-//		}
-//
-//		Group group = identityService.createGroupQuery().groupId(groupId).singleResult();
-//		if (group == null) {
-//			group = identityService.newGroup(groupId);
-//		}
-//		group.setName(role.getName());
-//		group.setType(role.getRoleType());
-//		identityService.saveGroup(group);
-//
-//		// 删除用户与用户组关系
-//		List<org.activiti.engine.identity.User> activitiUserList = identityService.createUserQuery().memberOfGroup(groupId).list();
-//		for (org.activiti.engine.identity.User activitiUser : activitiUserList){
-//			identityService.deleteMembership(activitiUser.getId(), groupId);
-//		}
-//
-//		// 创建用户与用户组关系
-//		List<User> userList = findUser(new User(new Role(role.getId())));
-//		for (User e : userList){
-//			String userId = e.getLoginName();//ObjectUtils.toString(user.getId());
-//			// 如果该用户不存在，则创建一个
-//			org.activiti.engine.identity.User activitiUser = identityService.createUserQuery().userId(userId).singleResult();
-//			if (activitiUser == null){
-//				activitiUser = identityService.newUser(userId);
-//				activitiUser.setFirstName(e.getName());
-//				activitiUser.setLastName(StringUtils.EMPTY);
-//				activitiUser.setEmail(e.getEmail());
-//				activitiUser.setPassword(StringUtils.EMPTY);
-//				identityService.saveUser(activitiUser);
-//			}
-//			identityService.createMembership(userId, groupId);
-//		}
+
 	}
 
 	public void deleteActivitiGroup(Role role) {
@@ -487,47 +403,14 @@ public class SystemService extends BaseService implements InitializingBean {
 		if (!Global.isSynActivitiIndetity()){
 			return;
 		}
-//		String userId = user.getLoginName();//ObjectUtils.toString(user.getId());
-//		org.activiti.engine.identity.User activitiUser = identityService.createUserQuery().userId(userId).singleResult();
-//		if (activitiUser == null) {
-//			activitiUser = identityService.newUser(userId);
-//		}
-//		activitiUser.setFirstName(user.getName());
-//		activitiUser.setLastName(StringUtils.EMPTY);
-//		activitiUser.setEmail(user.getEmail());
-//		activitiUser.setPassword(StringUtils.EMPTY);
-//		identityService.saveUser(activitiUser);
-//
-//		// 删除用户与用户组关系
-//		List<Group> activitiGroups = identityService.createGroupQuery().groupMember(userId).list();
-//		for (Group group : activitiGroups) {
-//			identityService.deleteMembership(userId, group.getId());
-//		}
-//		// 创建用户与用户组关系
-//		for (Role role : user.getRoleList()) {
-//	 		String groupId = role.getEnname();
-//	 		// 如果该用户组不存在，则创建一个
-//		 	Group group = identityService.createGroupQuery().groupId(groupId).singleResult();
-//            if(group == null) {
-//	            group = identityService.newGroup(groupId);
-//	            group.setName(role.getName());
-//	            group.setType(role.getRoleType());
-//	            identityService.saveGroup(group);
-//            }
-//			identityService.createMembership(userId, role.getEnname());
-//		}
+
 	}
 
 	private void deleteActivitiUser(User user) {
 		if (!Global.isSynActivitiIndetity()){
 			return;
 		}
-//		if(user!=null) {
-//			String userId = user.getLoginName();//ObjectUtils.toString(user.getId());
-//			identityService.deleteUser(userId);
-//		}
+
 	}
-	
-	///////////////// Synchronized to the Activiti end //////////////////
-	
+
 }

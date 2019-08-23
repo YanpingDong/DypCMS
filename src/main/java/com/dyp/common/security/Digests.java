@@ -33,6 +33,9 @@ public class Digests {
 	public static byte[] md5(byte[] input, int iterations) {
 		return digest(input, MD5, null, iterations);
 	}
+	public static byte[] md5(byte[] input,byte[] salt, int iterations  ) {
+		return digest(input, MD5, salt, iterations);
+	}
 	
 	/**
 	 * 对输入字符串进行sha1散列.

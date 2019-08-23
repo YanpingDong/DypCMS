@@ -1,6 +1,7 @@
 package com.dyp.config;
 
 import com.dyp.modules.sys.security.CustomRealm;
+import com.dyp.modules.sys.utils.EncryptUtils;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -127,9 +128,9 @@ public class ShiroConfig {
     public HashedCredentialsMatcher hashedCredentialsMatcher() {
         HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
         // 散列算法:这里使用MD5算法;
-        hashedCredentialsMatcher.setHashAlgorithmName(CustomRealm.algorithmName);
+        hashedCredentialsMatcher.setHashAlgorithmName(EncryptUtils.ALGORITHM_NAME);
         // 散列的次数，比如散列两次，相当于 md5(md5(""));
-        hashedCredentialsMatcher.setHashIterations(CustomRealm.hashIterations);
+        hashedCredentialsMatcher.setHashIterations(EncryptUtils.HASH_INTERATIONS);
         // storedCredentialsHexEncoded默认是true，此时用的是密码加密用的是Hex编码；false时用Base64编码
         hashedCredentialsMatcher.setStoredCredentialsHexEncoded(true);
         return hashedCredentialsMatcher;

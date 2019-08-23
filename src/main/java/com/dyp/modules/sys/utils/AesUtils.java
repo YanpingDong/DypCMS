@@ -13,7 +13,7 @@ import javax.crypto.spec.SecretKeySpec;
  * @Author: xu.dm
  * @Date: 2018/11/24 22:26
  * @Description:
- * 用来对用户密码做加解密
+ * 用来对前端页面用户传入的密码做加解密
  */
 public class AesUtils {
     private static final String ALGORITHMSTR = "AES/ECB/PKCS5Padding";

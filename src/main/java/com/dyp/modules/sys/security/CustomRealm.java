@@ -22,9 +22,6 @@ import java.util.Set;
 * */
 @Component
 public class CustomRealm extends AuthorizingRealm {
-    public static String algorithmName = "md5";
-    public static int hashIterations = 2;
-    public static String salt = "8d78869f470951332959580424d4bf4f";
 
     @Autowired
     private UserDao userDao;
@@ -54,19 +51,16 @@ public class CustomRealm extends AuthorizingRealm {
         System.out.println("-------身份认证方法--------");
 
         String userName = (String) authenticationToken.getPrincipal();
-        //根据用户名从数据库获取密码，这里就模拟下
-        String userPwd = "123456";
-        //模拟存数据库前的加密操作，本应该是存入前就加密过的
-        String encryptPwd = EncryptUtils.encrypt(userPwd,salt,this.algorithmName,this.hashIterations);
-        User loginUser = userDao.getByLoginName(new User("", userName));
 
         if (userName == null) {
             throw new AccountException("用户名不正确");
-        } else if (!userPwd.equals(userPwd)) {//做简单判断
-            throw new AccountException("密码不正确");
         }
-//        return new SimpleAuthenticationInfo(userName, password, getName());
-        return new SimpleAuthenticationInfo(userName, encryptPwd, ByteSource.Util.bytes(salt),getName());
+
+        User loginUser = userDao.getByLoginName(new User("", userName));
+        String encryptPwd = EncryptUtils.getPasswordPart(loginUser.getPassword());
+        String salt = EncryptUtils.getSaltPart(loginUser.getPassword());
+
+        return new SimpleAuthenticationInfo(userName, encryptPwd, ByteSource.Util.bytes(salt), getName());
     }
 
 }
