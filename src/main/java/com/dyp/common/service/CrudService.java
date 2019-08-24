@@ -51,6 +51,7 @@ public abstract class CrudService<D extends CrudDao<T>, T extends DataEntity<T>>
 	public List<T> findList(T entity) {
 		return dao.findList(entity);
 	}
+
 	
 	/**
 	 * 查询分页数据
@@ -87,5 +88,7 @@ public abstract class CrudService<D extends CrudDao<T>, T extends DataEntity<T>>
 	public void delete(T entity) {
 		dao.delete(entity);
 	}
+
+
 
 }
